@@ -34,6 +34,10 @@
     "email": "",
     "url": ""
   },
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/Froelund/strapi-plugin-images.git"
+  },
   "maintainers": [
     {
       "name": "Kristian Froelund",
