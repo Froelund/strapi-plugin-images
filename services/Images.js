@@ -16,7 +16,7 @@ module.exports = {
       provider,
       url,
     } = entity;
-    if (provider) {
+    if (provider == 'local') {
       const filePath = path.join(strapi.config.appPath, 'public', url);
       return Jimp.read(filePath);
     } else {

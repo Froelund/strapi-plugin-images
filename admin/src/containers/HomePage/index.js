@@ -27,6 +27,7 @@ export class HomePage extends React.Component {
   render() {
     return (
       <div className={styles.homePage}>
+        <h1>Images plugin</h1>
       </div>
     );
   }
