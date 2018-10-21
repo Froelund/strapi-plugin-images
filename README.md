@@ -8,7 +8,7 @@ When the plugin is installed, it will add a `resize_url` field to each attachmen
 
 ### Resizing endpoint
 
-This endpoint can be called with some manipulation parameters.
+This endpoint can be called with some transformation parameters.
 
 Examples:
 
