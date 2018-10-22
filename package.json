@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-images",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This plugin delivers more image-features to your apis.",
   "strapi": {
     "name": "images",
