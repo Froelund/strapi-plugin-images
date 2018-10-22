@@ -35,8 +35,8 @@
     "url": ""
   },
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/Froelund/strapi-plugin-images.git"
+    "type": "git",
+    "url": "https://github.com/Froelund/strapi-plugin-images.git"
   },
   "maintainers": [
     {
