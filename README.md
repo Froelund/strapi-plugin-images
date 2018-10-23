@@ -22,6 +22,15 @@ cp node_modules/strapi/node_modules/strapi-generate-plugin/templates/gitignore p
 ```
 *To keep a clean project, you'll need the `.gitignore` plugin template from strapi*
 
+## Configuration
+
+When plugin has been installed, you need to allow access to the `GET: images` endpoint.
+
+1. Navigate to Users & Permissions.
+2. Pick the role you would like to give permission.
+3. Scroll down to the section **Images**.
+4. Check the `get` endpoint, and press save.
+
 ## Usage
 
 When the plugin is installed, it will add a `resize_url` field to each attachment in the response. When the attachment is of a supported mime-type, the field will contain a url for the resizing endpoint.
