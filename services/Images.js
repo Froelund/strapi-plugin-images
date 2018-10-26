@@ -48,7 +48,7 @@ module.exports = {
       });
     });
   },
-  resizeURL: async (imageID) => {
+  resizeURL: (imageID) => {
     return `/images/${imageID}`;
   }
 };
