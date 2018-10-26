@@ -47,5 +47,8 @@ module.exports = {
         return resolve(buffer);
       });
     });
+  },
+  resizeURL: async (imageID) => {
+    return `/images/${imageID}`;
   }
 };
