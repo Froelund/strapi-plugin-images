@@ -1,0 +1,10 @@
+{
+  "connection": "bull-client",
+  "collectionName": "",
+  "info": {
+    "name": "images-model",
+    "description": "This model is an internal model, used by the Images plugin"
+  },
+  "options": {},
+  "attributes": {}
+}
