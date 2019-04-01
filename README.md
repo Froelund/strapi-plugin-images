@@ -22,6 +22,50 @@ cp node_modules/strapi/node_modules/strapi-generate-plugin/templates/gitignore p
 ```
 *To keep a clean project, you'll need the `.gitignore` plugin template from strapi*
 
+## Setup required redis connections
+
+This plugin has the ability to processes image manipulations seperate from the main strapi process. This is managed using the ever stable task manager [Bull](https://www.npmjs.com/package/bull), which requires redis.
+
+Three connections is being used: `client`, `subscriber` and `bclient`.
+
+Add these three connections to each environment as follows:
+```
+"bull-client": {
+  "connector": "strapi-hook-redis",
+  "settings": {
+    "port": 6379,
+    "host": "127.0.0.1",
+    "password": ""
+  },
+  "options": {
+    "debug": false
+  }
+},
+"bull-subscriber": {
+  "connector": "strapi-hook-redis",
+  "settings": {
+    "port": 6379,
+    "host": "127.0.0.1",
+    "password": ""
+  },
+  "options": {
+    "debug": false
+  }
+},
+"bull-bclient": {
+  "connector": "strapi-hook-redis",
+  "settings": {
+    "port": 6379,
+    "host": "127.0.0.1",
+    "password": ""
+  },
+  "options": {
+    "debug": false
+  }
+}
+```
+Ofcourse your connection settings might differ. Check the [documentation for strapi connections](https://strapi.io/documentation/3.x.x/configurations/configurations.html#database)
+
 ## Configuration
 
 When plugin has been installed, you need to allow access to the `GET: images` endpoint.
