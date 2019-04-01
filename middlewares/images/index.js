@@ -33,7 +33,7 @@ module.exports = strapi => ({
       _.forEach(attachmentKeys, (key) => {
         const objectPath = key.split(',');
         const attachment = _.get(responseBody, objectPath);
-        if ( ImagesService.supportedMime(_.get(attachment, ['mime']))) {
+        if ( ImagesService.supported(_.get(attachment, ['mime']))) {
           const resizeRoute = ImagesService.resizeURL(_.get(attachment, ['_id']));
           _.set(responseBody, [...objectPath, 'resize_url'], resizeRoute);
         } else {
