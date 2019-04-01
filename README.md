@@ -66,6 +66,36 @@ Add these three connections to each environment as follows:
 ```
 Ofcourse your connection settings might differ. Check the [documentation for strapi connections](https://strapi.io/documentation/3.x.x/configurations/configurations.html#database)
 
+## Ofloading image processing to worker-process
+
+First you should change the configuration to be using a worker-process.
+
+Go to `plugins/images/config/images.json` and change the `processing.worker` to `true`. Like this:
+```
+{
+  "rootURL": "${process.env.ROOT_URL || 'http://localhost:1337'}",
+  "processing": {
+    "worker": true,
+    "queue": "image_processing"
+  },
+  "redis": {
+    "client": "bull-client",
+    "subscriber": "bull-subscriber",
+    "bclient": "bull-bclient"
+  }
+}
+```
+
+Now the main strapi process will not be processing images, this should be handled by the worker.
+
+You need to start the worker along-side of the strapi process.
+
+For example, on heroku your `Procfile` would look as the this:
+```
+web: npm start
+worker: node plugins/images/worker.js
+```
+
 ## Configuration
 
 When plugin has been installed, you need to allow access to the `GET: images` endpoint.
