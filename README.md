@@ -85,14 +85,14 @@ This endpoint can be called with some transformation parameters.
 
 Examples:
 
-```HOST_NAME/images/${image_id}?size=120x120```
+```HOST_NAME/images/${image_id}?width=120&height=120```
 This example will resize the image to 120px by 120px. It will by default use the "cover" mode.
 
-```HOST_NAME/images/${image_id}?size=120x120&mode=contain```
+```HOST_NAME/images/${image_id}?width=120&height=120&mode=contain```
 This example will resize the image to 120px by 120px. This is explicitly configured to use the contain mode.
 
 ## Credits
 
-This plugin is basically a strapi implementation of [Jimp](https://github.com/oliver-moran/jimp)
+This plugin is using [Sharp](https://www.npmjs.com/package/sharp) and [Bull](https://www.npmjs.com/package/bull) for task management.
 
 Checkout the docs.
