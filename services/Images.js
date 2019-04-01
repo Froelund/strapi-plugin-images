@@ -11,7 +11,6 @@ const {
  *
  * @description: 
  */
-
 class ImageNotFound extends Error {
   constructor(...args) {
     super(...args);
