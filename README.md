@@ -18,7 +18,7 @@ mv node_modules/strapi-plugin-images plugins/images
 *In order for strapi to use this plugin, it has to be moved to the folder `plugins`*
 
 ```
-cp node_modules/strapi/node_modules/strapi-generate-plugin/templates/gitignore plugins/images/.gitignore
+cp node_modules/strapi-generate-plugin/templates/gitignore plugins/images/.gitignore
 ```
 *To keep a clean project, you'll need the `.gitignore` plugin template from strapi*
 
