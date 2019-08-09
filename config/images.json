@@ -1,0 +1,12 @@
+{
+  "rootURL": "${process.env.ROOT_URL || 'http://localhost:1337'}",
+  "processing": {
+    "worker": false,
+    "queue": "image_processing"
+  },
+  "redis": {
+    "client": "bull-client",
+    "subscriber": "bull-subscriber",
+    "bclient": "bull-bclient"
+  }
+}

@@ -1,6 +1,10 @@
 'use strict';
 const _ = require('lodash');
 
+const {
+  IMAGES_PLUGIN
+} = require('../../Constants');
+
 function extractAttachmentKeys(jsonBody) {
   const recursiveMap = (value, key) => {
     if (_.isArray(value)) {
@@ -19,7 +23,7 @@ function extractAttachmentKeys(jsonBody) {
 
 module.exports = strapi => ({
   initialize: (cb) => {
-    const ImagesService = strapi.plugins['images'].services.images;
+    const ImagesService = strapi.plugins[IMAGES_PLUGIN].services.images;
     strapi.app.use(async (ctx, next) => {
       await next();
       if (ctx.get('Content-Type') != 'application/json' || !ctx.body) return;
@@ -29,7 +33,7 @@ module.exports = strapi => ({
       _.forEach(attachmentKeys, (key) => {
         const objectPath = key.split(',');
         const attachment = _.get(responseBody, objectPath);
-        if ( ImagesService.supportedMime(_.get(attachment, ['mime']))) {
+        if ( ImagesService.supported(_.get(attachment, ['mime']))) {
           const resizeRoute = ImagesService.resizeURL(_.get(attachment, ['_id']));
           _.set(responseBody, [...objectPath, 'resize_url'], resizeRoute);
         } else {

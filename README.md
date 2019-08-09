@@ -22,6 +22,80 @@ cp node_modules/strapi-generate-plugin/templates/gitignore plugins/images/.gitig
 ```
 *To keep a clean project, you'll need the `.gitignore` plugin template from strapi*
 
+## Setup required redis connections
+
+This plugin has the ability to processes image manipulations seperate from the main strapi process. This is managed using the ever stable task manager [Bull](https://www.npmjs.com/package/bull), which requires redis.
+
+Three connections is being used: `client`, `subscriber` and `bclient`.
+
+Add these three connections to each environment as follows:
+```
+"bull-client": {
+  "connector": "strapi-hook-redis",
+  "settings": {
+    "port": 6379,
+    "host": "127.0.0.1",
+    "password": ""
+  },
+  "options": {
+    "debug": false
+  }
+},
+"bull-subscriber": {
+  "connector": "strapi-hook-redis",
+  "settings": {
+    "port": 6379,
+    "host": "127.0.0.1",
+    "password": ""
+  },
+  "options": {
+    "debug": false
+  }
+},
+"bull-bclient": {
+  "connector": "strapi-hook-redis",
+  "settings": {
+    "port": 6379,
+    "host": "127.0.0.1",
+    "password": ""
+  },
+  "options": {
+    "debug": false
+  }
+}
+```
+Ofcourse your connection settings might differ. Check the [documentation for strapi connections](https://strapi.io/documentation/3.x.x/configurations/configurations.html#database)
+
+## Ofloading image processing to worker-process
+
+First you should change the configuration to be using a worker-process.
+
+Go to `plugins/images/config/images.json` and change the `processing.worker` to `true`. Like this:
+```
+{
+  "rootURL": "${process.env.ROOT_URL || 'http://localhost:1337'}",
+  "processing": {
+    "worker": true,
+    "queue": "image_processing"
+  },
+  "redis": {
+    "client": "bull-client",
+    "subscriber": "bull-subscriber",
+    "bclient": "bull-bclient"
+  }
+}
+```
+
+Now the main strapi process will not be processing images, this should be handled by the worker.
+
+You need to start the worker along-side of the strapi process.
+
+For example, on heroku your `Procfile` would look as the this:
+```
+web: npm start
+worker: node plugins/images/worker.js
+```
+
 ## Configuration
 
 When plugin has been installed, you need to allow access to the `GET: images` endpoint.
@@ -41,14 +115,14 @@ This endpoint can be called with some transformation parameters.
 
 Examples:
 
-```HOST_NAME/images/${image_id}?size=120x120```
+```HOST_NAME/images/${image_id}?width=120&height=120```
 This example will resize the image to 120px by 120px. It will by default use the "cover" mode.
 
-```HOST_NAME/images/${image_id}?size=120x120&mode=contain```
+```HOST_NAME/images/${image_id}?width=120&height=120&mode=contain```
 This example will resize the image to 120px by 120px. This is explicitly configured to use the contain mode.
 
 ## Credits
 
-This plugin is basically a strapi implementation of [Jimp](https://github.com/oliver-moran/jimp)
+This plugin is using [Sharp](https://www.npmjs.com/package/sharp) and [Bull](https://www.npmjs.com/package/bull) for task management.
 
 Checkout the docs.
