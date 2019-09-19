@@ -20,13 +20,13 @@ module.exports = {
       size,
       mode = 'cover',
     } = ctx.query;
-    const entity = await strapi.plugins['upload'].services.upload.fetch(ctx.params);
+    const entity = await strapi.plugins['upload'].services.upload.fetch({ id: ctx.params._id });
     const {
       mime,
     } = entity;
     if (!entity) return ctx.notFound(); // Upload was not found
     if (!ImagesService.supportedMime(mime)) return ctx.noContent(); // Mime of the upload is not supported
-    
+
     try {
       const image = await ImagesService.read(entity);
       await ImagesService
