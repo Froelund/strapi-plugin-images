@@ -18,7 +18,7 @@ function extractAttachmentKeys(jsonBody) {
 }
 
 module.exports = strapi => ({
-  initialize: (cb) => {
+  initialize: () => {
     const ImagesService = strapi.plugins['images'].services.images;
     strapi.app.use(async (ctx, next) => {
       await next();
@@ -29,7 +29,7 @@ module.exports = strapi => ({
       _.forEach(attachmentKeys, (key) => {
         const objectPath = key.split(',');
         const attachment = _.get(responseBody, objectPath);
-        if ( ImagesService.supportedMime(_.get(attachment, ['mime']))) {
+        if (ImagesService.supportedMime(_.get(attachment, ['mime']))) {
           const resizeRoute = ImagesService.resizeURL(_.get(attachment, ['_id']));
           _.set(responseBody, [...objectPath, 'resize_url'], resizeRoute);
         } else {
@@ -38,6 +38,5 @@ module.exports = strapi => ({
       });
       ctx.body = responseBody;
     });
-    cb();
   }
 });
